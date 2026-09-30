@@ -1,0 +1,8 @@
+name: 'trivial_tp'
+version: '1.0.0'
+profile: 'trivial_tp'
+
+models:
+  trivial_tp:
+    marts:
+      +materialized: table

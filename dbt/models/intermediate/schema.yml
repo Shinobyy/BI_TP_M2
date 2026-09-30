@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: int_generations_enriched
+    description: >
+      `fact_generations` de GOLD.md 3 : l'unique jointure de la couche, enrichie
+      de macro_domain, n_choices, question_length et is_unparsed. Point d'entree
+      de toutes les tables gold.
+    columns:
+      - name: n_choices
+        description: >
+          Options reellement presentees, en miroir de build_choices() dans
+          ai_gen.py. L'esperance au hasard en decoule (1.0 / n_choices), et donc
+          tout le lift : si les deux definitions divergent, le chiffre de tete
+          est faux sans que rien ne casse.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [2, 3, 4]
+                quote: false

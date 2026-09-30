@@ -1,0 +1,21 @@
+# Python 3.12
+#     python3.12 -m venv .venv && .venv/bin/pip install -r requirements.txt
+#
+# Bornes hautes sur la majeure : streamlit 1.63 et pandas 3.0 ont chacun
+# apporte des ruptures d'API dans le passe recent, et ce depot doit pouvoir
+# etre rejoue tel quel a la correction.
+
+# Ingestion OpenTDB (main.py) et appels LM Studio (ai_gen.py)
+requests>=2.32,<3
+
+# Ecriture des parquet silver (insert_to_silver.py)
+pyarrow>=18,<26
+
+# Lecture de la couche gold et dataframes (lib/db.py)
+duckdb>=1.1,<2
+pandas>=2.2,<4
+
+# Rapport interactif. altair est une dependance de streamlit, epinglee ici
+# parce que les graphiques s'appuient sur l'API alt.theme, arrivee en 5.5.
+streamlit>=1.63,<2
+altair>=5.5,<7

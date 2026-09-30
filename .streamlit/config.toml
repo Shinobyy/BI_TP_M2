@@ -1,0 +1,45 @@
+# Palettes validees par script (validate_palette.js) contre leur propre surface :
+# bande de clarte, plancher de chroma, separation en vision deficiente,
+# contraste. Le mode sombre n'est pas le mode clair inverse -- il a ses propres
+# pas, valides separement contre #1a1a19.
+
+[theme]
+base = "light"
+font = "sans serif"
+baseRadius = "medium"
+primaryColor = "#2a78d6"
+
+[theme.light]
+backgroundColor = "#fcfcfb"          # surface de graphique validee
+secondaryBackgroundColor = "#f0efec"
+textColor = "#0b0b0b"
+borderColor = "#e1e0d9"
+dataframeBorderColor = "#e1e0d9"
+linkColor = "#2a78d6"
+# Les couleurs de graphique s'appliquent a Altair, Vega-Lite et Plotly quand
+# theme="streamlit". chartSequentialColors exige exactement 10 couleurs valides,
+# sinon Streamlit retombe silencieusement sur sa palette par defaut.
+chartCategoricalColors = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#4a3aa7", "#e34948"]
+chartSequentialColors = ["#cde2fb", "#b7d3f6", "#9ec5f4", "#86b6ef", "#6da7ec", "#5598e7", "#3987e5", "#2a78d6", "#256abf", "#1c5cab"]
+chartDivergingColors = ["#e34948", "#e97c78", "#efa9a5", "#f4cdca", "#f0efec", "#cfe0f7", "#9ec5f4", "#6da7ec", "#3987e5", "#2a78d6"]
+
+[theme.dark]
+backgroundColor = "#1a1a19"          # surface de graphique sombre validee
+secondaryBackgroundColor = "#232322"
+textColor = "#ffffff"
+borderColor = "#2c2c2a"
+dataframeBorderColor = "#2c2c2a"
+linkColor = "#3987e5"
+primaryColor = "#3987e5"
+chartCategoricalColors = ["#3987e5", "#d95926", "#199e70", "#c98500", "#d55181", "#008300", "#9085e9", "#e66767"]
+chartSequentialColors = ["#104281", "#184f95", "#1c5cab", "#256abf", "#2a78d6", "#3987e5", "#5598e7", "#6da7ec", "#86b6ef", "#9ec5f4"]
+chartDivergingColors = ["#e66767", "#d55a5a", "#a94a4a", "#6b3a38", "#383835", "#2a4f74", "#1c5cab", "#256abf", "#3987e5", "#5598e7"]
+
+[theme.sidebar]
+backgroundColor = "#f0efec"
+
+[theme.dark.sidebar]
+backgroundColor = "#141413"
+
+[browser]
+gatherUsageStats = false

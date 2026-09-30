@@ -1,0 +1,64 @@
+version: 2
+
+models:
+  # Ordre de lecture de GOLD.md 5 : les six tables forment une chaine.
+  - name: gold_format_compliance
+    description: 1. Mes chiffres sont-ils exploitables ? Table de controle, conditionne la validite du reste.
+    columns:
+      - name: model_name
+        data_tests:
+          - unique:
+              arguments:
+                config:
+                  where: "prompt_version = 'v1'"
+
+  - name: gold_model_performance
+    description: >
+      2. Qui gagne, et bat-on le hasard ? Une ligne par modele, a prompt fixe et
+      sur le perimetre commun aux modeles ayant vu au moins la moitie du corpus.
+    columns:
+      - name: model_name
+        data_tests: [unique, not_null]
+      - name: lift
+        description: accuracy_micro - chance_accuracy. C'est ce chiffre qui conclut, pas l'accuracy brute.
+
+  - name: gold_prompt_performance
+    description: 3. Le merite revient-il au modele ou au prompt ? Degeneree tant qu'un seul prompt existe.
+
+  - name: gold_domain_performance
+    description: >
+      Precision par theme, 13 macro-domaines. Vue marginale : repond a « sur quels
+      themes le modele est bon », la matrice repondant a « ou ca casse, croise
+      avec la difficulte ». Reagregee depuis le grain fin, jamais en moyennant
+      les cellules de la matrice.
+
+  - name: gold_category_performance
+    description: Meme lecture sur les 24 categories brutes d'OpenTDB. Detail de gold_domain_performance.
+
+  - name: gold_difficulty_performance
+    description: >
+      Precision par niveau (easy / medium / hard). Teste aussi le label difficulty
+      d'OpenTDB : des accuracy plates signifient que le label de la source ne
+      predit rien de la difficulte reelle pour un modele.
+    columns:
+      - name: pct_boolean
+        description: >
+          Part de questions vrai/faux du niveau. Les boolean ont un hasard a 50 %
+          contre 25 % pour les QCM : si cette part varie entre niveaux, comparer
+          les accuracy brutes compare aussi deux esperances differentes, et il
+          faut lire le lift.
+
+  - name: gold_category_difficulty_matrix
+    description: 4. Ou ca casse ? Une ligne par case de heatmap. Colorer par lift, filtrer sur is_reliable.
+
+  - name: gold_domain_difficulty_matrix
+    description: 4 bis. Meme lecture, agregee en 13 macro-domaines. Visuel principal.
+
+  - name: gold_model_cost
+    description: 5. Est-ce que ca vaut le temps machine ? Lire steady_state_seconds pour comparer, total_seconds pour budgeter.
+
+  - name: gold_failure_review
+    description: 6. Concretement, a quoi ressemble un echec ? Une ligne par generation fausse, denormalisee.
+
+  - name: gold_failure_sample
+    description: 6 bis. Echantillon stratifie et deterministe, 10 erreurs par macro-domaine.

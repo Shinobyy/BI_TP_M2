@@ -1,0 +1,49 @@
+# ---------------------------------------------------------------------------
+# Environnement Python
+# ---------------------------------------------------------------------------
+.venv/
+__pycache__/
+*.py[cod]
+.env
+
+# ---------------------------------------------------------------------------
+# Secrets
+# ---------------------------------------------------------------------------
+# Aucun secret n'est necessaire a ce projet (OpenTDB est publique, LM Studio
+# est un serveur local sans authentification). La ligne est la pour que personne
+# n'en committe un par accident si ca change.
+.streamlit/secrets.toml
+
+# ---------------------------------------------------------------------------
+# Artefacts de build dbt -- tous regenerables par `dbt build` en ~1 s
+# ---------------------------------------------------------------------------
+dbt/target/
+dbt/logs/
+# identifiant de telemetrie anonyme, genere par dbt
+dbt/.user.yml
+logs/
+
+# ---------------------------------------------------------------------------
+# Bases DuckDB -- sorties, pas sources
+# ---------------------------------------------------------------------------
+# gold.duckdb se reconstruit depuis les parquet versionnes :
+#     cd dbt && ./bootstrap_silver.sh && dbt build
+# db.duckdb est la base heritee, produite par gold.sql.
+dbt/gold/*.duckdb
+db.duckdb
+
+# ---------------------------------------------------------------------------
+# Systeme
+# ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+
+# ---------------------------------------------------------------------------
+# NOTE -- ce qui est volontairement VERSIONNE
+# ---------------------------------------------------------------------------
+# questions.csv      (848 Ko) bronze : ~105 appels API a 5 s d'intervalle
+# questions.parquet  (560 Ko) silver
+# ai.parquet         (1,4 Mo) silver : 21 000 appels LLM, ~16 h de calcul
+#
+# Ces trois fichiers rendent le depot reproductible sans refaire le run, ce qui
+# est le seul interet de les versionner malgre leur nature binaire.

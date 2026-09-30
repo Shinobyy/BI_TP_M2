@@ -1,0 +1,7 @@
+trivial_tp:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: gold/gold.duckdb
+      threads: 4
